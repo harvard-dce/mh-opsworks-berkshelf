@@ -1,5 +1,4 @@
 DEPENDENCIES
-  activemq (~> 2.0.4)
   apt (~> 2.9.2)
   cron (~> 1.6.1)
   java (= 1.47.0)
@@ -13,8 +12,6 @@ DEPENDENCIES
     path: opsworks_initial_setup
 
 GRAPH
-  activemq (2.0.4)
-    java (~> 1.13)
   apt (2.9.2)
   ark (1.0.1)
     build-essential (>= 0.0.0)
@@ -44,7 +41,6 @@ GRAPH
     homebrew (>= 0.0.0)
     yum-epel (>= 0.0.0)
   oc-opsworks-recipes (0.1.0)
-    activemq (~> 2.0.4)
     apt (~> 2.9.2)
     cron (~> 1.6.1)
     java (= 1.47.0)
