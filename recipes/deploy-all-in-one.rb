@@ -92,13 +92,6 @@ live_streaming_url = get_live_streaming_url
 live_stream_name = get_live_stream_name
 distribution = using_local_distribution ? 'download' : 'aws.s3'
 
-# LDAP credentials
-ldap_conf = get_ldap_conf
-ldap_enabled = ldap_conf[:enabled]
-ldap_url = ldap_conf[:url]
-ldap_userdn = ldap_conf[:userdn]
-ldap_psw = ldap_conf[:pass]
-
 # Porta (push series metadata)
 porta_conf = get_porta_metadata_conf
 porta_enabled = porta_conf[:enabled]
@@ -124,9 +117,6 @@ other_oc_preflocal_series = node.fetch(:other_oc_preflocal_series, ignore_flag)
 bug_report_email = node.fetch(:bug_report_email, "no_email_set")
 
 git_data = node[:deploy][:opencast][:scm]
-
-
-activemq_bind_host = private_hostname
 
 database_connection = get_database_connection
 
@@ -179,9 +169,6 @@ deploy_revision "opencast" do
     )
     install_porta_metadata_service(most_recent_deploy, porta_url, porta_enabled)
     install_live_streaming_service_config(most_recent_deploy, live_stream_name, live_streaming_url, distribution)
-    if ldap_enabled
-      install_ldap_config(most_recent_deploy, ldap_url, ldap_userdn, ldap_psw)
-    end
     install_otherpubs_service_config(most_recent_deploy, opencast_repo_root, auth_host, other_oc_host, other_oc_prefother_series, other_oc_preflocal_series, bug_report_email)
     install_otherpubs_service_series_impl_config(most_recent_deploy)
     install_helix_googlesheets_service_config(most_recent_deploy, local_workspace_root, helix_googlesheets_cred, helix_googlesheets_defaultdur_min, helix_enabled, helix_token, helix_sheet_id, helix_email_enabled)
@@ -193,9 +180,6 @@ deploy_revision "opencast" do
     # OPC-496
     install_adminui_tools_config(most_recent_deploy, zoom_ingester_url, zoom_ingester_api_key)
     install_published_event_details_email(most_recent_deploy, public_hostname, public_engage_protocol)
-    # f/OPC-344-notify-ca
-    # External Capture Agent Sync service
-    install_capture_agent_sync_config(most_recent_deploy)
 
     # all-in-one SPECIFIC
     # oc 11.x Do not create the db tables
@@ -238,7 +222,6 @@ deploy_revision "opencast" do
         live_monitor_url: live_monitor_url,
         job_maxload: nil,
         stack_name: stack_name,
-        activemq_bind_host: activemq_bind_host,
         distribution_type: distribution,
         production_management_email: production_management_email
       })

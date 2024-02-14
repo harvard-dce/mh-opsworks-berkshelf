@@ -22,8 +22,4 @@ if node['maven']['setup_bin']
   end
 end
 
-if admin_node? || allinone_node?
-  include_recipe 'activemq'
-end
-
 include_recipe "oc-opsworks-recipes::clean-up-package-cache"

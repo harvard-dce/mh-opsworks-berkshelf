@@ -305,17 +305,6 @@ module MhOpsworksRecipes
       )
     end
 
-    def get_ldap_conf
-      node.fetch(
-        :ldap_conf, {
-          enabled: false,
-          url: '',
-          userdn: '',
-          pass: ''
-        }
-      )
-    end
-
     def get_porta_metadata_conf
       node.fetch(
         :porta_metadata_conf, {
@@ -928,13 +917,11 @@ module MhOpsworksRecipes
     end
 
     def install_default_tenant_config(current_deploy_root, cas_enabled, public_host)
-      ldap_conf = get_ldap_conf
       template %Q|#{current_deploy_root}/etc/security/mh_default_org.xml| do
         source 'mh_default_org.xml.erb'
         owner 'opencast'
         group 'opencast'
         variables({
-          ldap_conf: ldap_conf,
           cas_enabled: cas_enabled,
           public_host: public_host
         })
@@ -946,17 +933,6 @@ module MhOpsworksRecipes
         {
           consumer: 'consumerkey',
           secret: 'sharedsecret'
-        }
-      )
-    end
-
-    def get_ldap_conf
-      node.fetch(
-        :ldap_conf, {
-          enabled: false,
-          url: '',
-          userdn: '',
-          pass: ''
         }
       )
     end
@@ -1005,19 +981,6 @@ module MhOpsworksRecipes
           live_stream_name: live_stream_name,
           live_streaming_url: live_streaming_url,
           distribution: distribution
-        })
-      end
-    end
-
-    def install_ldap_config(current_deploy_root, ldap_url, ldap_userdn, ldap_psw)
-      template %Q|#{current_deploy_root}/etc/org.opencastproject.userdirectory.ldap-dce.cfg| do
-        source 'org.opencastproject.userdirectory.ldap-dce.cfg.erb'
-        owner 'opencast'
-        group 'opencast'
-        variables({
-          ldap_url: ldap_url,
-          ldap_userdn: ldap_userdn,
-          ldap_psw: ldap_psw
         })
       end
     end
@@ -1219,23 +1182,6 @@ module MhOpsworksRecipes
         })
       end
     end
-
-    def install_capture_agent_sync_config(current_deploy_root)
-      capture_agent_sync = node.fetch(:capture_agent_sync, {
-            url: '',
-            threshold: '200'
-      })
-      template %Q|#{current_deploy_root}/etc/org.opencastproject.captureagentsync.CaptureAgentSyncUpdatedEventHandler.cfg| do
-        source 'org.opencastproject.captureagentsync.CaptureAgentSyncUpdatedEventHandler.cfg.erb'
-        owner 'opencast'
-        group 'opencast'
-        variables({
-          capture_agent_sync_url: capture_agent_sync[:url],
-          capture_agent_sync_threshold: capture_agent_sync[:threshold]
-        })
-      end
-    end
-
 
     def copy_workflows_into_place_for_admin(current_deploy_root)
       execute 'clean original workflow directory' do

@@ -30,13 +30,6 @@ immersive_classroom_url = node.fetch(
 
 immersive_classroom_engage_id = get_immersive_classroom_engage_id
 
-# LDAP credentials
-ldap_conf = get_ldap_conf
-ldap_enabled = ldap_conf[:enabled]
-ldap_url = ldap_conf[:url]
-ldap_userdn = ldap_conf[:userdn]
-ldap_psw = ldap_conf[:pass]
-
 auth_host = node.fetch(:auth_host, 'example.com')
 
 # Porta auth system
@@ -90,8 +83,6 @@ git_revision = git_data.fetch(:revision, 'master')
 oc_prebuilt_artifacts = node.fetch(:oc_prebuilt_artifacts, {})
 use_prebuilt_oc = is_truthy(oc_prebuilt_artifacts[:enable])
 
-activemq_bind_host = private_admin_hostname
-
 public_admin_hostname = get_public_admin_hostname
 public_admin_protocol = get_public_admin_protocol
 
@@ -135,18 +126,12 @@ deploy_revision "opencast" do
     # Copy in the configs as distributed in the git repo
     # Some services will be further tweaked by templates
     copy_files_into_place_for(:engage, most_recent_deploy)
-#    copy_dce_configs(most_recent_deploy)
 
     install_init_scripts(most_recent_deploy, opencast_repo_root)
     install_opencast_log_configuration(most_recent_deploy)
     install_opencast_log_management
     install_multitenancy_config(most_recent_deploy, public_admin_hostname, public_admin_protocol, public_engage_hostname, public_engage_protocol, stack_name, immersive_classroom_url, immersive_classroom_engage_id)
-#    remove_felix_fileinstall(most_recent_deploy)
     install_smtp_config(most_recent_deploy)
-
-    if ldap_enabled
-      install_ldap_config(most_recent_deploy, ldap_url, ldap_userdn, ldap_psw)
-    end
 
     install_default_tenant_config(most_recent_deploy, cas_enabled, public_engage_hostname)
     install_porta_auth_service(
@@ -185,7 +170,6 @@ deploy_revision "opencast" do
         job_maxload: nil,
         stack_name: stack_name,
         workspace_cleanup_period: 0,
-        activemq_bind_host: activemq_bind_host,
         production_management_email: production_management_email,
         cas_service: cas_service
       })

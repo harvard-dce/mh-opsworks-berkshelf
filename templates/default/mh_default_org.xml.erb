@@ -31,12 +31,14 @@
     <sec:intercept-url pattern="/" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/cas" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/cas/**" access="ROLE_ANONYMOUS" />
-    <sec:intercept-url pattern="/admin-ng/login.html" access="ROLE_ANONYMOUS" />
+    <sec:intercept-url pattern="/login.html" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/sysinfo/bundles/version" method="GET" access="ROLE_ANONYMOUS" />
 
     <!-- Allow anonymous access to resources from runtime info ui -->
     <sec:intercept-url pattern="/img/**" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/js/**" access="ROLE_ANONYMOUS" />
+    <sec:intercept-url pattern="/scripts/**" access="ROLE_ANONYMOUS" />
+    <sec:intercept-url pattern="/styles/**" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/docs.*" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/rest_docs.*" access="ROLE_ANONYMOUS" />
 
@@ -87,13 +89,16 @@
     <sec:intercept-url pattern="/admin-ng/event/*" method="GET" access="ROLE_ADMIN, ROLE_UI_EVENTS_DETAILS_VIEW" />
     <sec:intercept-url pattern="/admin-ng/groups/groups.json" method="GET" access="ROLE_ADMIN, ROLE_UI_GROUPS_VIEW" />
     <sec:intercept-url pattern="/admin-ng/groups/*" method="GET" access="ROLE_ADMIN, ROLE_UI_GROUPS_EDIT" />
+    <sec:intercept-url pattern="/admin-ng/index/rebuild/states.json" method="GET" access="ROLE_ADMIN, ROLE_UI_SERVICES_VIEW" />
     <sec:intercept-url pattern="/admin-ng/job/jobs.json" method="GET" access="ROLE_ADMIN, ROLE_UI_JOBS_VIEW" />
     <sec:intercept-url pattern="/admin-ng/series/series.json" method="GET" access="ROLE_ADMIN, ROLE_UI_SERIES_VIEW" />
     <sec:intercept-url pattern="/admin-ng/series/new/metadata" method="GET" access="ROLE_ADMIN, ROLE_UI_SERIES_DETAILS_METADATA_VIEW" />
     <sec:intercept-url pattern="/admin-ng/series/new/themes" method="GET" access="ROLE_ADMIN, ROLE_UI_SERIES_DETAILS_THEMES_EDIT" />
+    <sec:intercept-url pattern="/admin-ng/series/new/tobira/page" method="GET" access="ROLE_ADMIN, ROLE_UI_SERIES_DETAILS_TOBIRA_EDIT" />
     <sec:intercept-url pattern="/admin-ng/series/*/access.json" method="GET" access="ROLE_ADMIN, ROLE_UI_SERIES_DETAILS_ACL_VIEW" />
     <sec:intercept-url pattern="/admin-ng/series/*/metadata.json" method="GET" access="ROLE_ADMIN, ROLE_UI_SERIES_DETAILS_METADATA_VIEW" />
     <sec:intercept-url pattern="/admin-ng/series/*/theme.json" method="GET" access="ROLE_ADMIN, ROLE_UI_SERIES_DETAILS_THEMES_VIEW" />
+    <sec:intercept-url pattern="/admin-ng/series/*/tobira/pages" method="GET" access="ROLE_ADMIN, ROLE_UI_SERIES_DETAILS_TOBIRA_VIEW" />
     <sec:intercept-url pattern="/admin-ng/series/*/hasEvents.json" method="GET" access="ROLE_ADMIN, ROLE_UI_SERIES_VIEW" />
     <sec:intercept-url pattern="/admin-ng/series/configuration.json" method="GET" access="ROLE_ADMIN, ROLE_UI_SERIES_VIEW" />
     <!-- #DCE OPC-581 video export tool -->
@@ -114,7 +119,7 @@
     <sec:intercept-url pattern="/admin-ng/tools/*/thumbnail.json" method="GET" access="ROLE_ADMIN, ROLE_UI_EVENTS_EDITOR_VIEW" />
     <sec:intercept-url pattern="/admin-ng/tools/*.json" method="GET" access="ROLE_ADMIN, ROLE_UI_EVENTS_EDITOR_VIEW" />
     <sec:intercept-url pattern="/admin-ng/users/users.json" method="GET" access="ROLE_ADMIN, ROLE_UI_USERS_VIEW" />
-    <sec:intercept-url pattern="/admin-ng/users/*.json" method="GET" access="ROLE_ADMIN, ROLE_UI_USERS_EDIT" />
+    <sec:intercept-url pattern="/admin-ng/users/*.json" method="GET" access="ROLE_ADMIN, ROLE_UI_USERS_EDIT, ROLE_UI_EVENTS_DETAILS_ACL_USER_ROLES_VIEW, ROLE_UI_SERIES_DETAILS_ACL_USER_ROLES_VIEW" />
     <sec:intercept-url pattern="/admin-ng/user-settings/signature" method="GET" access="ROLE_ADMIN, ROLE_ADMIN_UI" />
     <sec:intercept-url pattern="/admin-ng/resources/events/filters.json" method="GET" access="ROLE_ADMIN, ROLE_UI_EVENTS_VIEW" />
     <sec:intercept-url pattern="/admin-ng/resources/jobs/filters.json" method="GET" access="ROLE_ADMIN, ROLE_UI_JOBS_VIEW" />
@@ -216,6 +221,8 @@
     <sec:intercept-url pattern="/api/info/*" method="GET" access="ROLE_ADMIN, ROLE_API" />
     <sec:intercept-url pattern="/api/info/me/*" method="GET" access="ROLE_ADMIN, ROLE_API" />
     <sec:intercept-url pattern="/api/info/organization/properties/engageuiurl" method="GET" access="ROLE_ADMIN, ROLE_UI_EVENTS_EMBEDDING_CODE_VIEW" />
+    <sec:intercept-url pattern="/api/listproviders" method="GET" access="ROLE_ADMIN, ROLE_API_LISTPROVIDERS_VIEW"/>
+    <sec:intercept-url pattern="/api/listproviders/*" method="GET" access="ROLE_ADMIN, ROLE_API_LISTPROVIDERS_VIEW"/>
     <sec:intercept-url pattern="/api/series" method="GET" access="ROLE_ADMIN, ROLE_API_SERIES_VIEW"/>
     <sec:intercept-url pattern="/api/series/*" method="GET" access="ROLE_ADMIN, ROLE_API_SERIES_VIEW"/>
     <sec:intercept-url pattern="/api/series/*/acl" method="GET" access="ROLE_ADMIN, ROLE_API_SERIES_ACL_VIEW"/>
@@ -236,6 +243,7 @@
     <sec:intercept-url pattern="/api/events/*/metadata" method="PUT" access="ROLE_ADMIN, ROLE_API_EVENTS_METADATA_EDIT"/>
     <sec:intercept-url pattern="/api/events/*/metadata/*" method="PUT" access="ROLE_ADMIN, ROLE_API_EVENTS_METADATA_EDIT"/>
     <sec:intercept-url pattern="/api/events/*/scheduling" method="PUT" access="ROLE_ADMIN, ROLE_API_EVENTS_SCHEDULING_EDIT"/>
+    <sec:intercept-url pattern="/api/events/*/track" method="POST" access="ROLE_ADMIN, ROLE_API_EVENTS_TRACK_EDIT"/>
     <sec:intercept-url pattern="/api/groups/*" method="PUT" access="ROLE_ADMIN, ROLE_API_GROUPS_EDIT"/>
     <sec:intercept-url pattern="/api/series/*" method="PUT" access="ROLE_ADMIN, ROLE_API_SERIES_EDIT"/>
     <sec:intercept-url pattern="/api/series/*/acl" method="PUT" access="ROLE_ADMIN, ROLE_API_SERIES_ACL_EDIT"/>
@@ -273,11 +281,14 @@
     <sec:intercept-url pattern="/admin-ng/img/**" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/admin-ng/lib/**" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/admin-ng/modules/**" access="ROLE_ANONYMOUS" />
-
     <sec:intercept-url pattern="/admin-ng/public/**" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/admin-ng/scripts/**" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/admin-ng/shared/**" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/admin-ng/styles/**" access="ROLE_ANONYMOUS" />
+
+    <sec:intercept-url pattern="/admin-ui/static/media/**" access="ROLE_ANONYMOUS" />
+    <sec:intercept-url pattern="/admin-ui/static/js/**" access="ROLE_ANONYMOUS" />
+    <sec:intercept-url pattern="/admin-ui/static/css/**" access="ROLE_ANONYMOUS" />
 
     <!-- Enable anonymous access to the /info/** resource -->
     <sec:intercept-url pattern="/info/**" method="GET" access="ROLE_ANONYMOUS" />
@@ -299,8 +310,6 @@
     <!-- Enable anonymous access to the engage player and the GET endpoints it requires -->
     <sec:intercept-url pattern="/engage/ui/**" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/engage/**" access="ROLE_ANONYMOUS" />
-    <!-- #DCE KHD: Alt paths: DCE former paella player, prep theodulpass -->
-    <sec:intercept-url pattern="/theodulpass/ui/**" method="GET" access="ROLE_ANONYMOUS" />
     <!-- #DCE KHD: MATT-1569 endpoint for Legacy pub data -->
     <sec:intercept-url pattern="/otherpubs/**" method="GET" access="ROLE_ANONYMOUS" />
     <!-- OPC-446 Producers can change otherpubs preferences (local, other) -->
@@ -327,12 +336,17 @@
     <sec:intercept-url pattern="/studio/manifest.json" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/studio/static/js/**" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/studio/**" access="ROLE_ADMIN, ROLE_STUDIO" />
+    <sec:intercept-url pattern="/studio-api/**" access="ROLE_ADMIN, ROLE_STUDIO" />
 
     <!-- Enable access to Opencast Editor -->
-    <sec:intercept-url pattern="/editor/**" access="ROLE_ADMIN, ROLE_USER" />
     <!-- #DCE OPC-845 -->
     <sec:intercept-url pattern="/editor-ui/manifest.json" access="ROLE_ANONYMOUS" />
-    <sec:intercept-url pattern="/editor-ui/**" access="ROLE_USER" />
+    <sec:intercept-url pattern="/editor/**" access="ROLE_ADMIN, ROLE_USER" />
+    <sec:intercept-url pattern="/editor-ui/**" access="ROLE_ADMIN, ROLE_USER" />
+
+    <!-- Enable access to the Tobira module -->
+    <sec:intercept-url pattern="/tobira/**" access="ROLE_ADMIN" />
+    <sec:intercept-url pattern="/tobira/version" access="ROLE_ANONYMOUS" />
 
     <!-- Enable anonymous access to the series endpoints -->
     <sec:intercept-url pattern="/series/**" method="GET" access="ROLE_ANONYMOUS, ROLE_CAPTURE_AGENT" />
@@ -374,13 +388,13 @@
     <sec:intercept-url pattern="/capture-admin/**" access="ROLE_ADMIN, ROLE_CAPTURE_AGENT" />
     <sec:intercept-url pattern="/recordings/**" method="GET" access="ROLE_ADMIN, ROLE_CAPTURE_AGENT" />
     <sec:intercept-url pattern="/ingest/**" access="ROLE_ADMIN, ROLE_CAPTURE_AGENT, ROLE_STUDIO" />
+    <sec:intercept-url pattern="/workflow/definitions.xml" method="GET" access="ROLE_ADMIN, ROLE_CAPTURE_AGENT" />
 
     <!-- Secure the user management URLs for admins only -->
     <sec:intercept-url pattern="/users/**" access="ROLE_ADMIN" />
     <sec:intercept-url pattern="/admin/users.html" access="ROLE_ADMIN" />
 
     <!-- Enable 2-legged OAuth access ("signed fetch") to the LTI launch servlet -->
-    <sec:intercept-url pattern="/lti" access="ROLE_OAUTH_USER" />
     <sec:intercept-url pattern="/lti/**" access="ROLE_OAUTH_USER" />
 
     <!-- Enable access to the LTI tools -->
@@ -388,22 +402,24 @@
 
     <!-- Enable access to the LTI service -->
     <sec:intercept-url pattern="/lti-service-gui/**" access="ROLE_OAUTH_USER" />
+    <sec:intercept-url pattern="/lti-service/**" access="ROLE_ADMIN, ROLE_OAUTH_USER" />
 
     <sec:intercept-url pattern="/transcripts/watson/results*" method="GET" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/transcripts/watson/results*" method="POST" access="ROLE_ANONYMOUS" />    
 
+    <!-- Enable access to the redirect routes -->
+    <sec:intercept-url pattern="/redirect/**" access="ROLE_ANONYMOUS" />
+
     <!-- OPC-59-metasynch -->
     <sec:intercept-url pattern="/metasynch/**" access="ROLE_ADMIN, ROLE_DCE_METASYNCH" />
-
-    <!-- OPC-201 #DCE LiveMontitor access -->
-    <sec:intercept-url pattern="/livemonitor/**" method="GET" access="ROLE_ADMIN, ROLE_UI_EVENTS_VIEW" />
 
     <!-- OPC-381 search transcripts -->
     <sec:intercept-url pattern="/searchContent/**" method="GET" access="ROLE_ANONYMOUS" />
 
     <!-- Everything else is for the admin users -->
-    <sec:intercept-url pattern="/admin-ng" method="GET" access="ROLE_ADMIN, ROLE_ADMIN_UI" />
-    <sec:intercept-url pattern="/admin-ng/" method="GET" access="ROLE_ADMIN, ROLE_ADMIN_UI" />
+    <sec:intercept-url pattern="/admin-ui" method="GET" access="ROLE_ADMIN, ROLE_ADMIN_UI" />
+    <sec:intercept-url pattern="/admin-ui/" method="GET" access="ROLE_ADMIN, ROLE_ADMIN_UI" />
+    <sec:intercept-url pattern="/admin-ui/index.html" access="ROLE_ADMIN, ROLE_ADMIN_UI" />
     <sec:intercept-url pattern="/admin-ng/index.html" access="ROLE_ADMIN, ROLE_ADMIN_UI" />
     <sec:intercept-url pattern="/index.html" access="ROLE_ADMIN, ROLE_ADMIN_UI" />
     <!-- OC Upstream #3959, #DCE OPC-719 Grant Producers access to "Go to admin" button from Engage -->
@@ -419,10 +435,11 @@
 
     <!-- CAS: allow form-based login even if using HK/CAS -->
     <!-- Enable and configure the failure URL for form-based logins -->
-    <sec:form-login authentication-failure-url="/admin-ng/login.html?error" authentication-success-handler-ref="authSuccessHandler" />
+    <sec:form-login authentication-failure-url="/login.html?error" authentication-success-handler-ref="authSuccessHandler" />
 
-    <!-- Authentication filter chain -->
+    <!-- (Pre-)Authentication filter chain(s) -->
     <sec:custom-filter position="BASIC_AUTH_FILTER" ref="authenticationFilters" />
+    <sec:custom-filter position="PRE_AUTH_FILTER" ref="preAuthenticationFilters" />
 
     <sec:custom-filter ref="asyncTimeoutRedirectFilter" after="EXCEPTION_TRANSLATION_FILTER"/>
 
@@ -509,12 +526,24 @@
         <!-- Uncomment the line below to support LTI or other OAuth clients.          -->
         <!-- #DCE OPC-9 enable OAuth filter -->
         <ref bean="oauthProtectedResourceFilter" />
+      </list>
+    </property>
+  </bean>
 
+  <!-- ################################ -->
+  <!-- # Pre-Aauthentication Filters    # -->
+  <!-- ################################ -->
+
+  <bean id="preAuthenticationFilters" class="org.springframework.web.filter.CompositeFilter">
+    <property name="filters">
+      <list>
         <!-- Uncomment the line below to support Shibboleth. -->
         <!-- <ref bean="shibbolethHeaderFilter" /> -->
 
         <!-- Uncomment the line below to support JWT.
         <ref bean="jwtHeaderFilter" /> -->
+        <!-- Additionally/alternatively uncomment this to support passing a JWT in a URL parameter.
+        <ref bean="jwtRequestParameterFilter" /> -->
       </list>
     </property>
   </bean>
@@ -556,8 +585,15 @@
 
   <!-- Redirects unauthenticated requests to the login form -->
   <bean id="userEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-    <property name="loginFormUrl" value="/admin-ng/login.html" />
+    <property name="loginFormUrl" value="/login.html" />
   </bean>
+
+  <!-- Redirect unauthenticated requests to custom login url with configurable redirect query parameter
+       Example: http://localhost/Shibboleth.sso/Login?target=<RELATIVE_REQUEST_URL> -->
+  <!--bean id="userEntryPoint" class="org.opencastproject.kernel.security.RedirectQueryParamAuthenticationEntryPoint">
+    <constructor-arg index="0" value="/Shibboleth.sso/Login" />
+    <constructor-arg index="1" value="target" />
+  </bean-->
 
   <!-- Returns a 401 request for authentication via digest auth -->
   <bean id="digestEntryPoint" class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
@@ -576,8 +612,8 @@
     <property name="securityService" ref="securityService" />
     <property name="welcomePages">
       <map>
-        <entry key="ROLE_ADMIN" value="/admin-ng/index.html" />
-        <entry key="ROLE_ADMIN_UI" value="/admin-ng/index.html" />
+        <entry key="ROLE_ADMIN" value="/index.html" />
+        <entry key="ROLE_ADMIN_UI" value="/index.html" />
         <entry key="*" value="/engage/ui/index.html" /> <!-- Any role not listed explicitly will redirect here -->
       </map>
     </property>
@@ -690,60 +726,6 @@
 <% end %>
 
 <%# ----------------------------------------- %>
-<%# This is only included if ldap is enabled. %>
-<%# ----------------------------------------- %>
-<% if @ldap_conf[:enabled] %>
-
-  <!-- ################ -->
-  <!-- # LDAP Support # -->
-  <!-- ################ -->
-
-  <bean id="contextSource"
-    class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
-    <!-- URL of the LDAP server -->
-    <constructor-arg value="<%= @ldap_conf[:url] %>" />
-    <!-- "Distinguished name" for the unprivileged user -->
-    <!-- This user is merely to perform searches in the LDAP to find the users to login -->
-    <property name="userDn" value="<%= @ldap_conf[:userdn] %>" />
-    <!-- Password of the user above -->
-    <property name="password" value="<%= @ldap_conf[:pass] %>" />
-  </bean>
-
-  <bean id="ldapAuthProvider"
-    class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
-    <constructor-arg>
-      <bean
-        class="org.springframework.security.ldap.authentication.BindAuthenticator">
-        <constructor-arg ref="contextSource" />
-        <property name="userDnPatterns">
-          <list>
-            <!-- Dn patterns to search for valid users. Multiple "<value>" tags are allowed -->
-            <!-- value>uid={0},ou=Group,dc=my-institution,dc=country</value -->
-            <value>uid={0},ou=people,dc=dce,dc=harvard,dc=edu</value>
-          </list>
-        </property>
-        <!-- If your user IDs are not part of the user Dn's, you can use a search filter to find them -->
-        <!-- This property can be used together with the "userDnPatterns" above -->
-        <!--
-        <property name="userSearch">
-          <bean name="filterUserSearch" class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
-            < ! - - Base Dn from where the users will be searched for - - >
-            <constructor-arg index="0" value="ou=group,dc=dce,dc=harvard,dc=edu" />
-            < ! - - Filter to located valid users. Use {0} as a placeholder for the login name - - >
-            <constructor-arg index="1" value="(memberUid={0})" />
-            <constructor-arg ref="contextSource" />
-          </bean>
-        </property>
-        -->
-      </bean>
-    </constructor-arg>
-
-    <!-- Defines how the user attributes are converted to authorities (roles) -->
-    <constructor-arg ref="authoritiesPopulator" />
-  </bean>
-
-<% end %>
-<%# ----------------------------------------- %>
 
   <!-- #################### -->
   <!-- # OSGI Integration # -->
@@ -763,24 +745,20 @@
   <osgi:reference id="userDirectoryService" cardinality="1..1"
                   interface="org.opencastproject.security.api.UserDirectoryService" />
 
+  <!-- Uncomment this as an alternative to the userDetailsMapper -->
+  <!-- Make sure you provide the same instanceId you used in org.opencastproject.userdirectory.ldap-….cfg -->
+  <!--
+  <osgi:reference id="authoritiesPopulator" cardinality="1..1"
+                  interface="org.springframework.security.ldap.userdetails.LdapAuthoritiesPopulator"
+                  filter="(instanceId=theId)"/>
+  -->
+
   <osgi:reference id="oAuthConsumerDetailsService" cardinality="1..1"
                   interface="org.springframework.security.oauth.provider.ConsumerDetailsService" />
 
   <osgi:reference id="ltiLaunchAuthenticationHandler" cardinality="1..1"
                   interface="org.springframework.security.oauth.provider.OAuthAuthenticationHandler" />
 
-
-<%# ----------------------------------------- %>
-<%# This is only included if ldap is enabled. %>
-<%# ----------------------------------------- %>
-<% if @ldap_conf[:enabled] %>
-
-  <osgi:reference id="authoritiesPopulator" cardinality="1..1"
-                  interface="org.springframework.security.ldap.userdetails.LdapAuthoritiesPopulator"
-                  filter="(instanceId=dce)" />
-
-<% end %>
-<%# ----------------------------------------- %>
 
   <!-- ############################# -->
   <!-- # Spring Security Internals # -->
@@ -803,20 +781,9 @@
         <sec:salt-source user-property="username" />
       </sec:password-encoder>
     </sec:authentication-provider>
-<%# ----------------------------------------- %>
-<%# This is only included if ldap is enabled. %>
-<%# ----------------------------------------- %>
-<% if @ldap_conf[:enabled] %>
-    <sec:authentication-provider ref="ldapAuthProvider" />
-<% end %>
-<%# ----------------------------------------- %>
   </sec:authentication-manager>
 
   <!-- Do not use a request cache -->
   <bean id="requestCache" class="org.springframework.security.web.savedrequest.NullRequestCache" />
-
-  <!-- Uncomment to enable logging interceptors -->
-  <!-- bean class="org.springframework.security.access.event.LoggerListener" / -->
-  <!-- bean class="org.springframework.security.authentication.event.LoggerListener" / -->
 
 </beans>

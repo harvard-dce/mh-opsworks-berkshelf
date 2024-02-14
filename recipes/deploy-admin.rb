@@ -75,13 +75,6 @@ live_streaming_url = get_live_streaming_url
 live_stream_name = get_live_stream_name
 distribution = using_local_distribution ? 'download' : 'aws.s3'
 
-# LDAP credentials
-ldap_conf = get_ldap_conf
-ldap_enabled = ldap_conf[:enabled]
-ldap_url = ldap_conf[:url]
-ldap_userdn = ldap_conf[:userdn]
-ldap_psw = ldap_conf[:pass]
-
 auth_host = node.fetch(:auth_host, 'example.com')
 
 # OPC-149 other oc host for pub list merge
@@ -106,8 +99,6 @@ private_hostname = node[:opsworks][:instance][:private_dns_name]
 nodename = node[:opsworks][:instance][:hostname]
 cas_enabled = node.fetch(:cas_enabled, false)
 cas_service = (public_admin_protocol + "://" + public_admin_hostname + "/cas") if cas_enabled
-
-activemq_bind_host = private_hostname
 
 database_connection = get_database_connection
 
@@ -147,7 +138,6 @@ deploy_revision "opencast" do
     # Copy in the configs as distributed in the git repo.
     # Some services will be further tweaked by templates
     copy_files_into_place_for(:admin, most_recent_deploy)
-#    copy_dce_configs(most_recent_deploy)
 
     copy_workflows_into_place_for_admin(most_recent_deploy)
 
@@ -160,9 +150,6 @@ deploy_revision "opencast" do
     install_smtp_config(most_recent_deploy)
     install_default_tenant_config(most_recent_deploy, cas_enabled, public_admin_hostname)
     install_live_streaming_service_config(most_recent_deploy, live_stream_name, live_streaming_url, distribution)
-    if ldap_enabled
-      install_ldap_config(most_recent_deploy, ldap_url, ldap_userdn, ldap_psw)
-    end
     # Admin Specific
     install_otherpubs_service_config(most_recent_deploy, opencast_repo_root, auth_host, other_oc_host, other_oc_prefother_series, other_oc_preflocal_series, '')
     install_otherpubs_service_series_impl_config(most_recent_deploy)
@@ -183,9 +170,6 @@ deploy_revision "opencast" do
     if using_local_distribution
       update_workflows_for_local_distribution(most_recent_deploy)
     end
-    # f/OPC-344-notify-ca
-    # External Capture Agent Sync service
-    install_capture_agent_sync_config(most_recent_deploy)
 
     # ADMIN SPECIFIC
     # oc 11.x: Do not create the db tables
@@ -216,7 +200,6 @@ deploy_revision "opencast" do
         job_maxload: nil,
         stack_name: stack_name,
         workspace_cleanup_period: 86400,
-        activemq_bind_host: activemq_bind_host,
         distribution_type: distribution,
         cas_service: cas_service
       })

@@ -77,6 +77,13 @@ org.opencastproject.storage.dir=<%= @local_workspace_root %>
 # Default: ${org.opencastproject.storage.dir}/archive
 org.opencastproject.episode.rootdir=${org.opencastproject.shared_storage.dir}/archive
 
+# You can specify additional asset manager directories.
+# This can be useful in case you want to use multiple nfs shares.
+# For each additional directory, write a line like `org.opencastproject.episode.rootdir.X=path`,
+# where "X" is a number starting at 1 and incrementing for each line.
+#org.opencastproject.episode.rootdir.1=${org.opencastproject.storage.dir}/archiveOriginal
+#org.opencastproject.episode.rootdir.2=/srv/opencast-zwei/archive
+
 # The path to the repository of files used during media processing.
 org.opencastproject.file.repo.path=${org.opencastproject.shared_storage.dir}/files
 
@@ -102,7 +109,7 @@ org.opencastproject.workflow.handler.workflow.ZipWorkflowOperationHandler.tmpdir
 
 # The base URL for media downloads.
 # Comment for #DCE: After 2.x, this needs to be set to the internal publication channel i.e.
-# http://ENGAGE/static. The S3 distributioni configuration now have a separate url where
+# http://ENGAGE/static. The S3 distribution configuration now have a separate url where
 # we specify the bucket url or the cloudfront address.
 org.opencastproject.download.url=<%= @engage_protocol %>://<%= @engage_hostname %>/static
 
@@ -143,10 +150,6 @@ org.opencastproject.db.jdbc.pool.login.timeout=1000
 org.opencastproject.db.jdbc.pool.max.idle.time=3600
 org.opencastproject.db.jdbc.pool.max.connection.age=21600
 
-######### Paella player configuration folder #########
-# #DCE paella player config is not retrieved from here, but, currently, from the paella jar (imported from dce-paella-extensions repo)
-org.opencastproject.engage.paella.config.folder=${karaf.etc}/paella
-
 
 ######### Workspace Cleanup #########
 
@@ -176,18 +179,6 @@ org.opencastproject.working.file.repository.cleanup.max.age=7
 # A comma separated lists of collections in the working file repository that shouldbe cleaned up.
 # Default value: Not provided (no collection will be cleaned up)
 org.opencastproject.working.file.repository.cleanup.collections=asset_aws_s3
-
-
-######### ACTIVE MQ BROKER #########
-
-# This configures the connection to the Active MQ broker so that we can send and receive messages.
-# There are many settings for specifying the broker url: http://activemq.apache.org/activemq-4-connection-uris.html
-# Including with failover support details here: http://activemq.apache.org/failover-transport-reference.html
-# Default (url): failover://(tcp://127.0.0.1:61616)?initialReconnectDelay=2000&maxReconnectDelay=60000
-# Default (username/password): None
-activemq.broker.url=failover://(tcp://<%= @activemq_bind_host %>:61616)?initialReconnectDelay=2000&maxReconnectDelay=60000
-#activemq.broker.username=admin
-#activemq.broker.password=password
 
 
 ######### Elasticsearch #########
@@ -222,16 +213,12 @@ org.opencastproject.solr.dir=${org.opencastproject.storage.dir}/solr-indexes
 # Directory to store the embedded solr indices.  This should be a persistent and stable directory.
 # Default: ${org.opencastproject.solr.dir}/{search, series, workflow}
 #org.opencastproject.search.solr.dir=${org.opencastproject.solr.dir}/search
-#org.opencastproject.series.solr.dir=${org.opencastproject.solr.dir}/series
-#org.opencastproject.workflow.solr.dir=${org.opencastproject.solr.dir}/workflow
 
 # URLs of dedicated Solr server to use.  Note that if thesw URLs are specified, the local embedded Solr index as
 # configured using `org.opencastproject.*.solr.dir` will be ignored. A dedicated Solr server should be set up in order
 # to enable running multiple instances of the related service. Please consult http://lucene.apache.org/solr/ on how to
 # set up a standalone Solr server.
 #org.opencastproject.search.solr.url=http://localhost:8983/solr/
-#org.opencastproject.series.solr.url=http://localhost:8983/solr/
-#org.opencastproject.workflow.solr.url=http://localhost:8983/solr/
 
 
 ######### Service Registry & Jobs #########
