@@ -7,14 +7,6 @@
 # Comma-separated list of service types that should never go into error state, e.g. org.opencastproject.assetmanager
 # Default: None
 #no.error.state.service.types=
-#TODO OC 11.x which services do we want here? search? transcript?
-
-# The interval in seconds between two rounds of dispatching in the service registry. A minimum value of 1s is enforced
-# due to performance reasons. Set to 0 to disable dispatching from this service registry.
-# Service registry dispatching is automatically set to 0 on everything but admin or allinone nodes and should usually
-# not be activated on these nodes to avoid concurrency problems.
-# Default: 2
-dispatchinterval=<%= @dispatch_interval %>
 
 # The interval in seconds between checking if the hosts in the service registry hosts are still alive.
 # Set to 0 to disable checking if hosts are still alive and able to be dispatched to.
@@ -29,4 +21,13 @@ heartbeat.interval=<%= @heartbeat_interval %>
 # Note that this setting does have a large impact on the performance of service statistics generation.
 # Default: 14
 #org.opencastproject.statistics.services.max_job_age = 14
+
+# Comma-separated list of encoding specialized worker nodes. Specified workers are preferred when dispatching encoding jobs.
+# Default: empty
+#org.opencastproject.encoding.workers=http://example.com, http://example1.com:8080
+
+# Numeric value between 0 and 1. Sets an load value under which specified encoding workers are preferred over other workers when dispatching encoding jobs.
+# A value of 0.2 corresponds to a threshold of 20% worker load
+# Default: 0.0
+#org.opencastproject.encoding.workers.threshold=
 
