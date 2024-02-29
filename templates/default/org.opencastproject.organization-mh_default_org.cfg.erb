@@ -363,9 +363,10 @@ prop.admin.notification.position.global=top-center
 # Format: A URL or path
 # Common values:
 #   The internal editor: #!/events/events/$id/tools/editor
-#   The external editing tool: /editor-ui/index.html?mediaPackageId=$id
-# Default: #!/events/events/$id/tools/editor
-#prop.admin.editor.url=/editor-ui/index.html?id=$id
+#   The external editing tool: /editor-ui/index.html?id=$id
+# Default: /editor-ui/index.html?id=$id
+# #DCE OC 16.x Keep using old editor in admin-ui for now.
+prop.admin.editor.url=#!/events/events/$id/tools/editor
 
 # #DCE OPC-699
 # Thumbnail settings for admin UI series properties
