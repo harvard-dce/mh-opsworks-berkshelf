@@ -1062,14 +1062,13 @@ module MhOpsworksRecipes
       end
     end
 
-    def install_adminui_tools_config(current_deploy_root, zoom_ingester_url, zoom_ingester_api_key)
+    def install_adminui_tools_config(current_deploy_root, zoom_ingester_url)
       template %Q|#{current_deploy_root}/etc/org.opencastproject.adminui.endpoint.ToolsEndpoint.cfg| do
         source 'org.opencastproject.adminui.endpoint.ToolsEndpoint.cfg.erb'
         owner 'opencast'
         group 'opencast'
         variables({
-          zoom_ingester_url: zoom_ingester_url,
-          zoom_ingester_api_key: zoom_ingester_api_key
+          zoom_ingester_url: zoom_ingester_url
         })
       end
     end

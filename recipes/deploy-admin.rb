@@ -55,7 +55,6 @@ porta_url = porta_conf[:porta_url]
 # OPC-496 Zoom ingester config
 zoom_ingester_config = get_zoom_ingester_config
 zoom_ingester_url = zoom_ingester_config[:url]
-zoom_ingester_api_key = zoom_ingester_config[:api_key]
 
 capture_agent_monitor_url = node.fetch(
   :capture_agent_monitor_url, 'http://example.com/monitor_url'
@@ -161,7 +160,7 @@ deploy_revision "opencast" do
     # OPC-554 porta metadata service
     install_porta_metadata_service(most_recent_deploy, porta_url, porta_enabled)
     # OPC-496
-    install_adminui_tools_config(most_recent_deploy, zoom_ingester_url, zoom_ingester_api_key)
+    install_adminui_tools_config(most_recent_deploy, zoom_ingester_url)
     unless ibm_watson_transcript_bucket.nil? or ibm_watson_transcript_bucket.empty?
       setup_transcript_result_sync_to_s3(shared_storage_root, ibm_watson_transcript_bucket)
     end
