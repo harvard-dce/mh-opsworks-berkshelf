@@ -60,7 +60,6 @@ elasticsearch_port = get_elasticsearch_config[:port]
 # OPC-496 Zoom ingester config
 zoom_ingester_config = get_zoom_ingester_config
 zoom_ingester_url = zoom_ingester_config[:url]
-zoom_ingester_api_key = zoom_ingester_config[:api_key]
 
 # OPC-446 get helix googlesheet service config
 helix_googlesheets_config = get_helix_googlesheet_config
@@ -178,7 +177,7 @@ deploy_revision "opencast" do
     # OPC-224 (only used during migration)
     install_ibm_watson_transcription_service_config(most_recent_deploy, ibm_watson_url, ibm_watson_api_key, ibm_watson_username, ibm_watson_psw)
     # OPC-496
-    install_adminui_tools_config(most_recent_deploy, zoom_ingester_url, zoom_ingester_api_key)
+    install_adminui_tools_config(most_recent_deploy, zoom_ingester_url)
     install_published_event_details_email(most_recent_deploy, public_hostname, public_engage_protocol)
 
     # all-in-one SPECIFIC
