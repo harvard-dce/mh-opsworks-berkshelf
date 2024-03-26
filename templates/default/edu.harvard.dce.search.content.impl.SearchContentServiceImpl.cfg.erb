@@ -14,8 +14,8 @@ aws.distribution.bucket=<%= @s3_distribution_bucket_name %>
 aws.lambda.function=<%= @lambda_function %>
 
 # Comma-separated list of flavors that should be treated as caption files.
-# Default: captions/timedText,captions/dfxp
-#caption.flavors=captions/timedText,captions/dfxp
+# Default: captions/timedText,captions/dfxp,captions/delivery
+#caption.flavors=captions/timedText,captions/dfxp,captions/delivery
 
 # The name of the transcripts index
 transcripts.index.name=<%= @stack_name %>-transcripts
