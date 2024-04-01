@@ -242,6 +242,11 @@ module MhOpsworksRecipes
       node.fetch(:vpn_ips, []) + ["127.0.0.1/32"]
     end
 
+    # Default harvard.edu domain and localhosts for iframe embedding
+    def get_iframe_embed_allowed_hosts
+      return node.fetch(:iframe_embed_whitelist, []) + ["https://*.harvard.edu", "http://localhost:*", "https://localhost:*", "http://127.0.0.1:*"]
+    end
+
     # Same subdomain CORS supprt
     # If special public_engage_hostname_cors config exists, use that for subdomain CORS support
     # Otherwise, use regular engage hostname for subdomain CORS support
