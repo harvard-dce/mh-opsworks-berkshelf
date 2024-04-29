@@ -6,7 +6,7 @@
 include_recipe "oc-opsworks-recipes::update-package-repo"
 
 packages = %Q|rh-mysql57 postfix mailx tesseract libwebp 
-  java-11-openjdk java-11-openjdk-devel java-11-openjdk-headless
+  java-17-openjdk java-17-openjdk-devel java-17-openjdk-headless
   cyrus-sasl-plain cyrus-sasl-lib cyrus-sasl|
 
 install_package(packages)
