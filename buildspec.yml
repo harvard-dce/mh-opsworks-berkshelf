@@ -32,7 +32,7 @@ phases:
       - echo Build completed on `date`
     finally:
       - payload={\"build_id\":\"$CODEBUILD_BUILD_ID\",\"build_url\":\"$CODEBUILD_BUILD_URL\",\"trigger_branch_or_tag\":\"$TRIGGER_BRANCH_OR_TAG\"}
-      - aws lambda invoke --function-name $NOTIFY_FUNCTION --invocation-type Event --payload $payload response.json
+      - aws lambda invoke --function-name $NOTIFY_FUNCTION --invocation-type Event --payload $payload --cli-binary-format raw-in-base64-out response.json
       - cat response.json
 artifacts:
   discard-paths: true
