@@ -1,19 +1,19 @@
 Event Details
 
-<#if catalogs['series']?has_content>
-Course: ${catalogs['series']['subject']!'offering missing'} - ${catalogs['series']['title']!' '}
-Instructor: ${catalogs['series']['creator']!'instructor missing'}
+<#if catalogs['dublincore/series']?has_content>
+Course: ${catalogs['dublincore/series']['subject']!'offering missing'} - ${catalogs['dublincore/series']['title']!' '}
+Instructor: ${catalogs['dublincore/series']['creator']!'instructor missing'}
 </#if>
 
-Title: ${catalogs['episode']['title']!'title missing'}
-Publication: ${catalogs['episode']['type']!'typeNumber missing'}
+Title: ${catalogs['dublincore/episode']['title']!'title missing'}
+Publication: ${catalogs['dublincore/episode']['type']!'typeNumber missing'}
 Event Date: ${mediaPackage.date?datetime?iso_local}
-Producer: ${catalogs['episode']['publisher']!'producer missing'}
+Producer: ${catalogs['dublincore/episode']['publisher']!'producer missing'}
 
-<#if catalogs['series']?has_content>
-<#if (catalogs['series']['identifier'])?matches("[0-9]{11}")>
-Publication listing page: <%= @engage_protocol %>://<%= @engage_hostname %>/engage/ui/index.html#/${catalogs['series']['identifier'][0..3]}/${catalogs['series']['identifier'][4..5]}/${catalogs['series']['identifier'][6..10]}
+<#if catalogs['dublincore/series']?has_content>
+<#if (catalogs['dublincore/series']['identifier'])?matches("[0-9]{11}")>
+Publication listing page: <%= @engage_protocol %>://<%= @engage_hostname %>/engage/ui/index.html#/${catalogs['dublincore/series']['identifier'][0..3]}/${catalogs['dublincore/series']['identifier'][4..5]}/${catalogs['dublincore/series']['identifier'][6..10]}
 <#else>
-Publication listing page (Non-DCE Series Identifier) : <%= @engage_protocol %>://<%= @engage_hostname %>/engage/ui/publicationListing.shtml?seriesId=${catalogs['series']['identifier']}
+Publication listing page (Non-DCE Series Identifier) : <%= @engage_protocol %>://<%= @engage_hostname %>/engage/ui/publicationListing.shtml?seriesId=${catalogs['dublincore/series']['identifier']}
 </#if>
 </#if>
