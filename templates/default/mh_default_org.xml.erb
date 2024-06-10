@@ -54,6 +54,8 @@
 
     <!-- Protect admin UI facade -->
     <sec:intercept-url pattern="/workflow/definitions.json" method="GET" access="ROLE_ADMIN, ROLE_UI_EVENTS_CREATE" />
+    <!-- #DCE For moscaler OC15, until we figure out the issue with digest -->
+    <sec:intercept-url pattern="/workflow/queuedJobCount" method="GET" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/admin-ng/acl/acls.json" method="GET" access="ROLE_ADMIN, ROLE_UI_ACLS_VIEW" />
     <sec:intercept-url pattern="/admin-ng/acl/*" method="GET" access="ROLE_ADMIN, ROLE_UI_ACLS_VIEW" />
     <sec:intercept-url pattern="/acl-manager/acl/*" method="GET" access="ROLE_ADMIN, ROLE_UI_ACLS_VIEW" />
