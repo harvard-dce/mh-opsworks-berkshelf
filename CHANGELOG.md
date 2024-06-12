@@ -2,9 +2,25 @@
 
 ## TO BE RELEASED
 
+# v5.1.0 - 6/12/2024
+
+Opencast 15 configuration changes:
+
+- Remove activemq
+- Remove unused configuration (ldap, ca sync service)
+- Update templates to latest
+- Change ES index name (just so that we can rollback if needed)
+- Change default captions flavor
+ 
+# v5.0.7 - 3/7/2024 
+
 - Adding tags to the crowdstrike config
 - Bump activemq version to 5.15.16
 
+# v5.0.6 - 2/2/2024
+
+- Add cold archive configuration
+ 
 # v5.0.5 - 12/11/2023
 
 - /search/lucene* endpoint to be accessed only by admins 
