@@ -9,6 +9,6 @@ password="$4"
 
 metric_name="OpencastJobsQueued"
 
-queued_jobs=$(/usr/local/bin/queued_job_count.py -u "$username" -p "$password" "$admin_hostname")
+queued_jobs=$(curl -s --insecure --digest -u ${username}:${password} -H "X-Requested-Auth:Digest" "https://${admin_hostname}/workflow/queuedJobCount")
 
 aws cloudwatch put-metric-data --region="$region" --namespace="$namespace" --dimensions="InstanceId=$instance_id" --metric-name="$metric_name" --value="$queued_jobs"
