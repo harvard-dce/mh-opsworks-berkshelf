@@ -2,6 +2,12 @@
 
 ## TO BE RELEASED
 
+# v5.1.1 - 6/14/2024
+
+- queued job count metric generator updated to use new OC endpoint
+- some other unneeded OC metric generators removed as their endpoints
+  have gone away and were not recreated
+
 # v5.1.0 - 6/12/2024
 
 Opencast 15 configuration changes:
