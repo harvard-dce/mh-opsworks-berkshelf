@@ -9,6 +9,9 @@ password="$4"
 
 metric_name="OpencastJobsQueued"
 
-queued_jobs=$(curl -s --insecure --digest -u ${username}:${password} -H "X-Requested-Auth:Digest" "${admin_url}/workflow/queuedJobCount")
+op_types="autotrim,composite,concat,demux,editor,encode,inspect,multiencode,process-smil,segment-video"
+endpoint_url="${admin_url}/workflow/queuedJobCount?operations=${op_types}"
+
+queued_jobs=$(curl -s --insecure --digest -u ${username}:${password} -H "X-Requested-Auth:Digest" $endpoint_url)
 
 aws cloudwatch put-metric-data --region="$region" --namespace="$namespace" --dimensions="InstanceId=$instance_id" --metric-name="$metric_name" --value="$queued_jobs"
