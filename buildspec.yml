@@ -7,6 +7,7 @@ phases:
       ruby: 2.6
     commands:
       - printenv
+      - gem install public_suffix -v '~> 5.1'
       - gem install chef-config -v '< 16.5.77'
       - gem install mixlib-log -v '~> 2'
       - gem install hitimes -v 2.0.0
