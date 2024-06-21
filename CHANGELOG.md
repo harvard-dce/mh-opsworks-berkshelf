@@ -2,6 +2,8 @@
 
 ## TO BE RELEASED
 
+- pinned public_suffix gem to a version that still supports ruby 2.x
+
 # v5.1.1 - 6/14/2024
 
 - queued job count metric generator updated to use new OC endpoint
