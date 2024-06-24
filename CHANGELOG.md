@@ -2,7 +2,10 @@
 
 ## TO BE RELEASED
 
+# v5.1.2 - 6/24/2024
+
 - pinned public_suffix gem to a version that still supports ruby 2.x
+- fix queued jobs metric generator script to sent operation types to new endpoint
 
 # v5.1.1 - 6/14/2024
 
