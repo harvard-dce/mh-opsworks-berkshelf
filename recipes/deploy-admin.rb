@@ -14,6 +14,11 @@ stack_name = stack_shortname
 
 using_local_distribution = is_using_local_distribution?
 
+# Gather api
+gather_api_url = node.fetch(
+  :gather_api_url, ''
+)
+
 # S3 file archive service
 region = node.fetch(:region, 'us-east-1')
 s3_file_archive_bucket_name = get_s3_file_archive_bucket_name
@@ -200,7 +205,8 @@ deploy_revision "opencast" do
         stack_name: stack_name,
         workspace_cleanup_period: 86400,
         distribution_type: distribution,
-        cas_service: cas_service
+        cas_service: cas_service,
+        gather_api_url: gather_api_url
       })
     end
   end
