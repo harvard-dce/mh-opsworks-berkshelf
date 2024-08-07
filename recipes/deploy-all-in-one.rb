@@ -20,6 +20,11 @@ private_hostname = node[:opsworks][:instance][:private_dns_name]
 
 using_local_distribution = is_using_local_distribution?
 
+# Gather api url
+gather_api_url = node.fetch(
+  :gather_api_url, ''
+)
+
 # S3 distribution service; also used by video export
 enable_s3 = !using_local_distribution
 region = node.fetch(:region, 'us-east-1')
@@ -222,7 +227,8 @@ deploy_revision "opencast" do
         job_maxload: nil,
         stack_name: stack_name,
         distribution_type: distribution,
-        production_management_email: production_management_email
+        production_management_email: production_management_email,
+        gather_api_url: gather_api_url
       })
     end
   end
