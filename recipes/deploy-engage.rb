@@ -76,6 +76,12 @@ s3_distribution_base_url=get_base_media_download_url(public_engage_hostname)
 search_content_index_url = node.fetch(:transcript_search_endpoint, '')
 search_content_lambda_name = node.fetch(:transcript_index_function, '')
 search_content_enabled = ! search_content_index_url.empty? && ! search_content_lambda_name.empty?
+
+# #DCE OPC-1024 External elasticsearch index (series impl)
+elasticsearch_host = get_elasticsearch_config[:host]
+elasticsearch_protocol = get_elasticsearch_config[:protocol]
+elasticsearch_port = get_elasticsearch_config[:port]
+
 ## /Engage specific
 
 git_data = node[:deploy][:opencast][:scm]
@@ -148,6 +154,10 @@ deploy_revision "opencast" do
     install_search_content_service_config(most_recent_deploy, search_content_enabled, region, s3_distribution_bucket_name, stack_name, search_content_index_url, search_content_lambda_name)
     # OPC-139 Oauth config
     install_oauthconsumerdetails_service_config(most_recent_deploy)
+
+    # #DCE OPC-1024 External elasticsearch index (series impl)
+    install_elasticsearch_index_config(most_recent_deploy, stack_name)
+
     # /ENGAGE SPECIFIC
 
     template %Q|#{most_recent_deploy}/etc/custom.properties| do
@@ -171,7 +181,10 @@ deploy_revision "opencast" do
         stack_name: stack_name,
         workspace_cleanup_period: 0,
         production_management_email: production_management_email,
-        cas_service: cas_service
+        cas_service: cas_service,
+        elasticsearch_host: elasticsearch_host,
+        elasticsearch_protocol: elasticsearch_protocol,
+        elasticsearch_port: elasticsearch_port
       })
     end
   end
