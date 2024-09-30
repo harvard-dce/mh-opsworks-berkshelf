@@ -15,6 +15,8 @@ engage_whitelist = get_engage_admin_allowed_hosts
 # Escape the 2 dots to use as literal dot chars in regex
 engage_domain_cors_regex = public_engage_hostname_cors[/((?=.)(\w+))((?:.)(\w+)){2}\z/].gsub(/\./, "\\.")
 
+iframe_embed_whitelist = get_iframe_embed_allowed_hosts
+
 ssl_info = node.fetch(:ssl, get_dummy_cert)
 if cert_defined(ssl_info)
   create_ssl_cert(ssl_info)
@@ -47,7 +49,8 @@ template 'proxy' do
     opencast_backend_http_port: 8080,
     certificate_exists: certificate_exists,
     public_engage_hostname: public_engage_hostname,
-    engage_domain_cors_regex: engage_domain_cors_regex
+    engage_domain_cors_regex: engage_domain_cors_regex,
+    iframe_embed_whitelist: iframe_embed_whitelist.join(" ")
   })
 end
 

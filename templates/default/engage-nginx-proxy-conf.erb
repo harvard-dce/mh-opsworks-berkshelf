@@ -120,18 +120,19 @@ server {
   set $cors_origin "*";
   set $cors_cred   "true";
   set $cors_method "GET, OPTIONS";
-  # No defaults for these
+
+  # No defaults for these: setting header to empty string causes the header to not be sent
   set $cors_header "";
-  set $cors_xframe_option "";
   set $cors_vary "";
   set $cors_expose_headers "";
 
+  # Special header permissios for domains in special enage specified domain (IC support)
+  # OPTION requests send option header containing domain
   if ($http_origin ~* (https?://.*\.<%= @engage_domain_cors_regex %>(:[0-9]+)?)) {
         set $cors_origin $http_origin;
         set $cors_cred   true;
         set $cors_header $http_access_control_request_headers;
         set $cors_method $http_access_control_request_method;
-        set $cors_xframe_option 'ALLOW FROM $http_origin';
         set $cors_vary 'Origin';
         set $cors_expose_headers 'Content-Length,Content-Range';
   }
@@ -139,9 +140,9 @@ server {
   add_header Access-Control-Allow-Credentials $cors_cred	always;
   add_header Access-Control-Allow-Headers     $cors_header	always;
   add_header Access-Control-Allow-Methods     $cors_method	always;
-  add_header X-Frame-Options                  $cors_xframe_option always;
   add_header Vary                             $cors_vary	always;
   add_header Access-Control-Expose-Headers    $cors_expose_headers always;
+  add_header Content-Security-Policy "frame-ancestors 'self' <%= @iframe_embed_whitelist %>;";
   # -- End cors specific headers (nginx omits headers with empty value )-- #
 
   location /static {
@@ -169,7 +170,6 @@ server {
       add_header Access-Control-Allow-Credentials $cors_cred;
       add_header Access-Control-Allow-Headers     $cors_header;
       add_header Access-Control-Allow-Methods     $cors_method;
-      add_header X-Frame-Options                  $cors_xframe_option;
       add_header Vary                             $cors_vary;
       add_header Access-Control-Expose-Headers    $cors_expose_headers;
       # Tell client that this pre-flight info is valid for 20 days.
