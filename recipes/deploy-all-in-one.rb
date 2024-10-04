@@ -49,6 +49,8 @@ s3_file_archive_course_list = get_s3_file_archive_course_list
 
 # S3 cold archive service
 s3_cold_archive_bucket_name = get_s3_cold_archive_bucket_name
+oc_access_key_id = video_export_creds[:access_key_id]
+oc_access_key = video_export_creds[:secret_access_key]
 
 # IBM Watson service credentials
 ibm_watson_credentials = get_ibm_watson_credentials
@@ -178,7 +180,7 @@ deploy_revision "opencast" do
     install_helix_googlesheets_service_config(most_recent_deploy, local_workspace_root, helix_googlesheets_cred, helix_googlesheets_defaultdur_min, helix_enabled, helix_token, helix_sheet_id, helix_email_enabled)
     install_bug_report_email(most_recent_deploy, public_hostname)
     install_aws_s3_file_archive_service_config(most_recent_deploy, region, s3_file_archive_bucket_name, s3_file_archive_enabled, s3_file_archive_course_list)
-    install_aws_s3_cold_archive_service_config(most_recent_deploy, region, s3_file_archive_bucket_name, s3_cold_archive_buckeet_name)
+    install_aws_s3_cold_archive_service_config(most_recent_deploy, region, s3_file_archive_bucket_name, s3_cold_archive_bucket_name, oc_access_key_id, oc_access_key)
     # OPC-224 (only used during migration)
     install_ibm_watson_transcription_service_config(most_recent_deploy, ibm_watson_url, ibm_watson_api_key, ibm_watson_username, ibm_watson_psw)
     # OPC-496

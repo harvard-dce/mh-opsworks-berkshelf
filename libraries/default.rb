@@ -1035,7 +1035,8 @@ module MhOpsworksRecipes
       end
     end
 
-    def install_aws_s3_cold_archive_service_config(current_deploy_root, region, s3_file_archive_bucket_name, s3_cold_archive_bucket_name)
+    def install_aws_s3_cold_archive_service_config(current_deploy_root, region, s3_file_archive_bucket_name, s3_cold_archive_bucket_name,
+      access_key_id, secret_access_key)
       template %Q|#{current_deploy_root}/etc/edu.harvard.dce.cold.archive.S3ColdArchiveService.cfg| do
         source 'edu.harvard.dce.cold.archive.S3ColdArchiveService.cfg.erb'
         owner 'opencast'
@@ -1043,7 +1044,9 @@ module MhOpsworksRecipes
         variables({
           region: region,
           s3_file_archive_bucket_name: s3_file_archive_bucket_name,
-          s3_cold_archive_bucket_name: s3_cold_archive_bucket_name
+          s3_cold_archive_bucket_name: s3_cold_archive_bucket_name,
+          access_key_id: access_key_id,
+          secret_access_key: secret_access_key
         })
       end
     end

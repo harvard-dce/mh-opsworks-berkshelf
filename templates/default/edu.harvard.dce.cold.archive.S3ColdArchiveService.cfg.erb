@@ -11,6 +11,12 @@ asset.manager.aws.s3.bucket=<%= @s3_file_archive_bucket_name %>
 # If empty, the service is disabled
 cold.archive.aws.s3.bucket=<%= @s3_cold_archive_bucket_name %>
 
+# The AWS access key ID to use for signing the urls. This is the IAM opencast_system_user. Mandatory.
+aws.access.key.id=<%= @access_key_id %>
+
+# The AWS secret access key to use for signing the urls. This is the IAM opencast_system_user. Mandatory.
+aws.secret.access.key=<%= @secret_access_key %>
+
 # Indicate if recordings will be deleted from Opencast after being archived
 # to cold storage
 # default: true
