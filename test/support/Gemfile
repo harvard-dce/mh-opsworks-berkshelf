@@ -2,4 +2,4 @@ source 'https://rubygems.org'
 
 gem 'foodcritic', '~> 6.0.0'
 gem 'yard-chef', git: 'https://github.com/harvard-dce/yard-chef', branch: 'master'
-gem 'yajl-ruby', '~> 1.3.1'
+gem 'yajl-ruby', '~> 1.4.3'
